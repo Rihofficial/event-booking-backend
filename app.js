@@ -17,7 +17,7 @@ app.use("/tickets", express.static("tickets"));
 
 
 app.get("/", (req, res) => {
-  res.send("Event Booking API is running");
+  res.send("Event Booking API is running!!!!");
 });
 
 module.exports = app;
