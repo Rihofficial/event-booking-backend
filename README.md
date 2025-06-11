@@ -25,8 +25,7 @@ A fully featured backend system for managing events, bookings, seat reservations
 - MongoDB / Mongoose
 - Nodemailer (with Ethereal for testing)
 - PDFKit (for ticket generation)
-- JWT for auth
-- Tailwind-ready frontend (optional)
+- JWT for authentication
 - Deployed via Render or Railway
 
 ---
