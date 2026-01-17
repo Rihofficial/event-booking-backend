@@ -1,89 +1,181 @@
-# 🎟️ Event Booking System (Node.js + Express)
+📌 Event Booking System — Backend
 
-A fully featured backend system for managing events, bookings, seat reservations, waitlists, and PDF ticket generation with email delivery.
+Node.js | Express.js | MongoDB | JWT | PDF Tickets | Email Notifications
 
----
+A full-featured backend system for managing events, bookings, seat reservations, waitlists, secure authentication, and PDF ticket delivery via email — built with scalability and real-world workflows in mind.
 
-## 🚀 Features
+🧠 Overview
 
-✅ User authentication (JWT)  
-✅ Admin panel for event management  
-✅ Event creation, update, deletion  
-✅ Booking with seat count  
-✅ Auto-generated PDF ticket  
-✅ Email ticket to user using Nodemailer  
-✅ Waitlist system with auto-promotion  
-✅ RESTful API with role-based access  
-✅ MongoDB (Mongoose) database  
-✅ Clean error handling and middleware
+This project implements a backend API for an Event Booking System, designed to handle:
 
----
+✔ Secure user authentication and role-based access
+✔ Admin event management (create/update/delete)
+✔ Bookings with seat capacity control
+✔ Waitlist logic with auto-promotion
+✔ PDF ticket generation
+✔ Email delivery of tickets
+✔ Structured RESTful API design
 
-## 🏗️ Tech Stack
+It’s intended for use with a frontend app (e.g., React) consuming the APIs and a MongoDB database storing application data.
 
-- Node.js / Express.js
-- MongoDB / Mongoose
-- Nodemailer (with Ethereal for testing)
-- PDFKit (for ticket generation)
-- JWT for authentication
-- Deployed via Render or Railway
+🚀 Features
+🔐 Authentication & Authorization
 
----
+JWT-based auth with access tokens
 
-## 📁 Project Structure
-┣ 📂controllers
-┣ 📂models
-┣ 📂routes
-┣ 📂utils
-┣ 📂tickets
-┣ 📄.env
-┣ 📄.gitignore
-┣ 📄server.js
-┗ 📄README.md
+Password hashing
+
+Protected routes with role-based access control
+
+🎟 Booking Workflows
+
+User can book seats for events
+
+Automatically joins waitlist when event is full
+
+Cancel bookings and free seats
+
+Users can view their bookings and waitlist
+
+✉ Email + PDF Tickets
+
+PDF ticket generation using PDFKit
+
+Automated email sending via Nodemailer (Ethereal or real SMTP)
+
+Tickets available via unique URLs
+
+🗃 API Endpoints
+
+Organized RESTful structure (see API Docs below)
+
+🧩 Tech Stack
+Layer	Technology
+Server	Node.js, Express.js
+Database	MongoDB (Mongoose ODM)
+Authentication	JWT
+Emails	Nodemailer
+PDF Generation	PDFKit
+Deployment	Render / Railway or any Node server
+Testing	Postman / Insomnia
+📁 Project Structure
+event-booking-backend/
+├ controllers/
+├ middleware/
+├ models/
+├ routes/
+├ utils/
+├ tickets/
+├ .env
+├ server.js
+└ README.md
+
+🔧 Getting Started (Local Setup)
+Prerequisites
+
+✔ Install Node.js & npm
+✔ MongoDB connection URI
+
+Installation
+
+Clone the repo
+
+git clone https://github.com/Rihofficial/event-booking-backend.git
+cd event-booking-backend
 
 
----
+Install dependencies
 
-## 🔐 Environment Variables (`.env`)
+npm install
 
-```env
+
+Create .env file
+Add environment variables:
+
 PORT=5000
-MONGO_URI=your_mongo_connection
-JWT_SECRET=your_jwt_secret
+MONGO_URI=<your_mongo_connection_string>
+JWT_SECRET=<your_jwt_secret>
+ETHEREAL_USER=<ethereal_username>
+ETHEREAL_PASS=<ethereal_password>
 
-ETHEREAL_USER=generated_ethereal_user
-ETHEREAL_PASS=generated_ethereal_pass
 
+Run the server
 
-✍️ API Endpoints
-👤 Auth
-POST /api/users/register
+npm start
 
-POST /api/users/login
+📜 API Documentation
 
-GET /api/users/profile
+Here are the key endpoints organized by group:
 
-🛠️ Admin
-POST /api/admin/events — Create event
+🛠 Authentication
+Method	Path	Description
+POST	/api/users/register	Register new user
+POST	/api/users/login	Login & receive JWT
+GET	/api/users/profile	Get logged-in user profile
+🔐 Admin — Event Management
+Method	Path	Description
+POST	/api/admin/events	Create event
+PUT	/api/admin/events/:id	Update event
+DELETE	/api/admin/events/:id	Delete event
+GET	/api/admin/event/:eventId/waitlist	Get event waitlist
+📆 Bookings
+Method	Path	Description
+POST	/api/bookings	Book a seat / join waitlist
+GET	/api/bookings/my	Get user bookings
+GET	/api/bookings/my-waitlist	Get user waitlist
+DELETE	/api/bookings/:id	Cancel a booking
+📩 Email Tickets
 
-PUT /api/admin/events/:id — Update event
+✔ Tickets are generated and served via static links
+✔ Emails are sent on booking confirmation
 
-DELETE /api/admin/events/:id — Delete event
+🧪 How It Works (High-Level Architecture)
 
-GET /api/admin/event/:eventId/waitlist — View waitlist
+Authentication
 
-🎟️ Bookings
-POST /api/bookings — Book or waitlist
+Users register and login
 
-GET /api/bookings/my — My bookings
+JWT tokens control access
 
-GET /api/bookings/my-waitlist — My waitlist
+Admin routes protected based on role
 
-DELETE /api/bookings/:id — Cancel booking
+Booking Logic
 
-📧 Email + Tickets
-PDF tickets generated with PDFKit
+When booking, check seat availability
 
-Tickets emailed via Nodemailer (Ethereal for dev)
+If full, add to waitlist
 
-Static tickets are served via /tickets
+On cancellation, auto-promote waitlist entry
+
+PDF & Email
+
+On success, generate ticket PDF
+
+Email ticket to user using Nodemailer
+
+This reflects common patterns in backend systems: authentication guards, role checks, business logic decoupled from routing, and email + file system integration.
+
+🧠 What You’ll Learn
+
+✔ Designing RESTful backend APIs
+✔ Implementing secure authentication flows
+✔ Managing business logic (booking, waitlists)
+✔ Integrating email delivery & document generation
+✔ Structuring a scalable Node.js project
+
+⭐ Why This Project Matters
+
+This is not a simple CRUD app — it demonstrates real backend responsibilities:
+
+✔ Auth, roles, and security
+✔ Complex workflows (waitlist, seat allocation)
+✔ Integrated email and third-party logic
+✔ Modern API structure that production teams care about
+
+📌 Next Improvements
+
+✔ Add automated tests (unit/integration)
+✔ Use role permissions stored in DB
+✔ Enhance email delivery with providers (SendGrid, SES)
+✔ Add Swagger for API documentation
+
